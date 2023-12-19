@@ -2,7 +2,7 @@
 
 namespace TruyenTranh;
 
-class Main {
+class Base {
 
     private $db_array = [];
 
@@ -32,14 +32,6 @@ class Main {
     }
 
     /**
-     * Đóng kết nối với cơ sở dữ liệu
-     * @return null
-     */
-    public function disconnectDatabase () {
-        return mysqli_close($this -> db_array);
-    }
-
-    /**
      * Hàm truy vấn dữ liệu thủ công
      * @param string $query
      * @return Array
@@ -49,7 +41,11 @@ class Main {
         return $fetchAll == false ? $result->fetch_assoc() : $result->fetch_all();
     }
 
-    public function select() {
-        
+     /**
+     * Đóng kết nối với cơ sở dữ liệu
+     * @return null
+     */
+    public function __destruct() {
+    	return mysqli_close($this -> db_array);
     }
 }

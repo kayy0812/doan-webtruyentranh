@@ -12,4 +12,4 @@ define("DB_PASS", '');
 
 $main = new Main();
 
-print_r($main->query("SELECT * FROM comics"));
+echo 'ĐANG CẬP NHẬT'
