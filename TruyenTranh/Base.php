@@ -46,6 +46,6 @@ class Base {
      * @return null
      */
     public function __destruct() {
-    	return mysqli_close($this -> db_array);
+    	return mysqli_close($this->db_array);
     }
 }
