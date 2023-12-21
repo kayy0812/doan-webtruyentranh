@@ -20,6 +20,9 @@ class Category extends Base {
      * @return Array
      */
     public function create(string $name) {
-        return $this->query("INSERT INTO category_default_list VALUES ($name)")
+        return $this->query("INSERT INTO category_default_list VALUES ($name)");
+    }
+    
+    public function delete(string $name) {
     }
 }

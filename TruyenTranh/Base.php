@@ -2,7 +2,9 @@
 
 namespace TruyenTranh;
 
-class Base {
+use TruyenTranh\Unit;
+
+class Base extends Unit{
 
     private $db_array = [];
 
@@ -36,7 +38,7 @@ class Base {
      * @param string $query
      * @return Array
      */
-    public function query($query, $fetchAll = false) {
+    protected function query($query, $fetchAll = false) {
         $result = mysqli_query($this->db_array, $query);
         return $fetchAll == false ? $result->fetch_assoc() : $result->fetch_all();
     }
