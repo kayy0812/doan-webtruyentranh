@@ -4,7 +4,7 @@ namespace TruyenTranh;
 
 use TruyenTranh\Unit;
 
-class Base extends Unit{
+class Base {
 
     private $db_array = [];
 
@@ -27,7 +27,7 @@ class Base extends Unit{
 
     /**
      * Lấy đối tượng chứa cơ sở dữ liệu đã kết nối
-     * @return Object
+     * @return array
      */
     public function getDatabase() {
         return $this->db_array;
@@ -35,12 +35,47 @@ class Base extends Unit{
 
     /**
      * Hàm truy vấn dữ liệu thủ công
-     * @param string $query
-     * @return Array
+     * @param string $table_name
+     * @param array $column
+     * @param array $options
+     * @return array
      */
-    protected function query($query, $fetchAll = false) {
+    protected function select(string $table_name, array $column, array $where, array $limit, array $options = [
+        'distinct' => false
+    ]) {
+        $query = "SELECT " . !$options['distinct'] == false ? "" : "DISTINCT" . " ";
+        $query .= !$column == [] ? "*": implode(', ', $column) . " ";
+        $query .= "FROM ". $table_name;
+        if (!empty($where)) {
+            $query .= " WHERE ". implode(" ", $where);
+        }
+
+        if (!empty($limit)) {
+            $query .= " LIMIT " . $limit['offset'] . ", " . $limit['length'];
+        }
+
         $result = mysqli_query($this->db_array, $query);
-        return $fetchAll == false ? $result->fetch_assoc() : $result->fetch_all();
+        return $result->fetch_array() ? $result->fetch_array() : [];
+    }
+
+
+    /**
+     * Chèn dữ liệu
+     * @param string $table_name
+     * @param array $key
+     * @param array $data
+     * @return bool
+     */
+    protected function insert(string $table_name, array $key, array $data) {
+        $query = "INSERT INTO $table_name (";
+        $query .= implode(", ", $key) . ') ';
+        $query .= 'VALUES (' . implode(', ', $data) .')';
+
+        if(mysqli_query($this->db_array, $query)) {
+            return true;
+        }
+
+        return false;
     }
 
      /**
@@ -48,6 +83,6 @@ class Base extends Unit{
      * @return null
      */
     public function __destruct() {
-    	return mysqli_close($this->db_array);
+    	mysqli_close($this->db_array);
     }
 }

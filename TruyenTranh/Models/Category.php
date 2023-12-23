@@ -8,7 +8,7 @@ class Category extends Base {
     /**
      * Get data from Category Table
      * @param bool $all
-     * @return Array
+     * @return array
      */
     public function get(bool $all = false) {
         return $this->query("SELECT * FROM category_default_list", $all);
@@ -17,7 +17,7 @@ class Category extends Base {
     /**
      * Get data from Category Table
      * @param string $name
-     * @return Array
+     * @return array
      */
     public function create(string $name) {
         return $this->query("INSERT INTO category_default_list VALUES ($name)");
