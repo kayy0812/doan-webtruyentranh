@@ -2,7 +2,7 @@
 
 namespace TruyenTranh;
 
-use TruyenTranh\Unit;
+use \mysqli_result;
 
 class Base {
 
@@ -35,27 +35,51 @@ class Base {
 
     /**
      * Hàm truy vấn dữ liệu thủ công
-     * @param string $table_name
-     * @param array $column
+     * @param mixed $table_name
      * @param array $options
-     * @return array
+     * @return mysqli_result
      */
-    protected function select(string $table_name, array $column, array $where, array $limit, array $options = [
-        'distinct' => false
+    public function select(mixed $table, array $options = [
+        'distinct' => false,
+        'column' => [],
+        'where' => [],
+        'group_by' => [],
+        'having' => [],
+        'order_by' => [],
+        'limit' => []
     ]) {
-        $query = "SELECT " . !$options['distinct'] == false ? "" : "DISTINCT" . " ";
-        $query .= !$column == [] ? "*": implode(', ', $column) . " ";
-        $query .= "FROM ". $table_name;
-        if (!empty($where)) {
-            $query .= " WHERE ". implode(" ", $where);
+        $query = "SELECT ";
+        $query .= isset($options['distinct']) == false ? "" : "DISTINCT" . " ";
+        $query .= !isset($options['column']) ? "*": implode(", ", $options['column']);
+        if (is_string($table)) {
+            $query .= " FROM ". $table;
+        } elseif (is_array($table)) {
+            $query .= " FROM ". implode(", ", $table);
         }
 
-        if (!empty($limit)) {
-            $query .= " LIMIT " . $limit['offset'] . ", " . $limit['length'];
+        if (isset($options['where'])) {
+            $query .= " WHERE ". implode(" ", $options['where']);
         }
 
-        $result = mysqli_query($this->db_array, $query);
-        return $result->fetch_array() ? $result->fetch_array() : [];
+        if (isset($options['group_by'])) {
+            $query .= " GROUP BY " . implode(", ", $options['group_by']);
+        }
+
+        if (isset($options['having'])) {
+            $query .= " HAVING ". implode(" ", $options['having']);
+        }
+
+        if (isset($options['order_by'])) {
+            $query .= " ORDER BY " . implode(", ", $options['order_by']);
+        }
+
+        if (isset($options['limit'])) {
+            $query .= " LIMIT " . $options['limit']['offset'] . ", " . $options['limit']['length'];
+        }
+
+        // echo $query;
+
+        return mysqli_query($this->db_array, $query);
     }
 
 
@@ -66,15 +90,22 @@ class Base {
      * @param array $data
      * @return bool
      */
-    protected function insert(string $table_name, array $key, array $data) {
+    public function insert(string $table_name, array $key, array $data) {
         $query = "INSERT INTO $table_name (";
         $query .= implode(", ", $key) . ') ';
-        $query .= 'VALUES (' . implode(', ', $data) .')';
 
+        $dataConvert = [];
+        foreach($data as $val) {
+            $dataConvert[] = '"'. trim($val) . '"';
+        }
+
+        $query .= 'VALUES (' . implode(', ', $dataConvert) .')';
+
+
+        // echo $query;
         if(mysqli_query($this->db_array, $query)) {
             return true;
         }
-
         return false;
     }
 

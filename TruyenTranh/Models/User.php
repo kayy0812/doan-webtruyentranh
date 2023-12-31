@@ -33,11 +33,11 @@ class User extends Base
                 'last_name'
             ],
             [
-                "'$username'",
-                "'$hashedPassword'",
-                "' " . $other['first_name']. " '",
-                "' " . $other['middle_name']. " '",
-                "' " . $other['last_name']. " '",
+                $username,
+                $hashedPassword,
+                $other['first_name'],
+                $other['middle_name'],
+                $other['last_name'],
             ]
         );
     }
