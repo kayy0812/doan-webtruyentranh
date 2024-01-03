@@ -13,35 +13,23 @@ define("DB_NAME", 'db_truyentranh');
 define("DB_USER", 'root');
 define("DB_PASS", '');
 
-
-
-
 $testBase = new Base();
-$dataTest = $testBase->select(['users', 'role_default_list as roles'], [
-    // 'column' => ['user_id', 'last_name'],
-    'limit' => [
-        'offset' => 0,
-        'length' => 10
-    ],
-    'where' => [
-        'users.role_id = roles.role_id'
-    ]
-]);
 
-var_dump(mysqli_fetch_assoc($dataTest));
+if (isset($_GET['redirector'])) {
+    $redirector = $_GET['redirector'];
 
-//test user
-// $user = new User();
+    if ($redirector) {
+        switch ($redirector) {
+            case 'admin':
+            case 'thaytrinhno1':
+                require './admin/home.php';
+                break;
 
-// $testCreateUser = $user->create('levanloc81134', 'locdeptrai', ['first_name' => 'Le', 'middle_name' => 'Van', 'last_name' => 'Loc']);
-
-// if ($testCreateUser) {
-//     echo 'Da them thanh cong';
-// } else {
-//     echo 'Da ton tai';
-// }
+            default:
+                require './errors/404.php';
+        }
+    }
+} else {
+    // require ('./Pages/Home.php');
+}
 ?>
-
-<script>
-    console.log(<?php echo json_encode($dataTest, JSON_PRETTY_PRINT) ?>);
-</script>
