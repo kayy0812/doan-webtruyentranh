@@ -13,21 +13,21 @@
         <div class="header__wrap-menu">
             <ul class="header__wrap-menu-list">
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=admin"
-                        class="header__wrap-menu-link <?= $redirector == 'admin' ? 'active' : ''; ?>">Trang
+                    <a href="./?redirector=admin&page=home"
+                        class="header__wrap-menu-link <?= $page == 'home' ? 'active' : ''; ?>">Trang
                         chủ</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=comics"
-                        class="header__wrap-menu-link <?= $redirector == 'comics' ? 'active' : ''; ?>">Truyện</a>
+                    <a href="./?redirector=admin&page=comics"
+                        class="header__wrap-menu-link <?= $page == 'comics' ? 'active' : ''; ?>">Truyện</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=chapters"
-                        class="header__wrap-menu-link <?= $redirector == 'chapters' ? 'active' : ''; ?>">Tập</a>
+                    <a href="./?redirector=admin&page=chapters"
+                        class="header__wrap-menu-link <?= $page == 'chapters' ? 'active' : ''; ?>">Tập</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=categories"
-                        class="header__wrap-menu-link <?= $redirector == 'categories' ? 'active' : ''; ?>">Thể loại</a>
+                    <a href="./?redirector=admin&page=categories"
+                        class="header__wrap-menu-link <?= $page == 'categories' ? 'active' : ''; ?>">Thể loại</a>
                 </li>
             </ul>
         </div>

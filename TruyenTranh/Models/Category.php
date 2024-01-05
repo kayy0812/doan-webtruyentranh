@@ -11,7 +11,13 @@ class Category extends Base {
      * @return array
      */
     public function get(bool $all = false) {
-        return $this->query("SELECT * FROM category_default_list", $all);
+        $result_selected = $this->select('categories', []);
+        $results = [];
+        foreach($result_selected as $val) {
+            $results[] = $val;
+        }
+
+        return $results;
     }
 
     /**

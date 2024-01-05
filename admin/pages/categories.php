@@ -1,3 +1,9 @@
+<?php
+use TruyenTranh\Models\Category;
+
+$category = new Category();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +26,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./admin/assets/css/base.css?v=<?= rand() ?>">
     <link rel="stylesheet" href="./admin/assets/css/main.css?v=<?= rand() ?>">
-    <title>Trang quản lý truyện | Admin Comics Page</title>
+    <title>Quản lý thể loại truyện | Admin Comics Page</title>
 </head>
 
 <body>

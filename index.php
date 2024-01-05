@@ -2,8 +2,6 @@
 session_start();
 require_once dirname(__FILE__) . '/TruyenTranh/autoload.php';
 
-use TruyenTranh\Models\User;
-use TruyenTranh\Unit;
 use TruyenTranh\Base;
 
 // Thông tin kết nối cơ sở dữ liệu
@@ -22,11 +20,8 @@ if (isset($_GET['redirector'])) {
         switch ($redirector) {
             case 'admin':
             case 'thaytrinhno1':
-                require_once './admin/pages/home.php';
+                require_once './admin/index.php';
                 break;
-            case 'categories':
-                require_once './admin/pages/categories.php';
-                    break;
             default:
                 require_once './errors/404.php';
         }
