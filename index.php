@@ -22,11 +22,13 @@ if (isset($_GET['redirector'])) {
         switch ($redirector) {
             case 'admin':
             case 'thaytrinhno1':
-                require './admin/home.php';
+                require_once './admin/pages/home.php';
                 break;
-
+            case 'categories':
+                require_once './admin/pages/categories.php';
+                    break;
             default:
-                require './errors/404.php';
+                require_once './errors/404.php';
         }
     }
 } else {
