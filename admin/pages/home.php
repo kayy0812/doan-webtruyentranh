@@ -35,25 +35,10 @@
                         <div class="body__wrap">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-11">
+                                    <div class="col">
                                         <h1 class="body__wrap-title">
                                             Trang chủ
                                         </h1>
-                                    </div>
-                                    <div class="col-1">
-                                        <button class="btn btn-dark body_wrap-user-btn">
-                                            <i class="fa-solid fa-user"></i>
-
-                                            <div class="body_wrap-user-sub">
-                                                <ul class="body_wrap-user-list">
-                                                    <li class="body_wrap-user-item">
-                                                        <a href="" class="body_wrap-user-link">
-                                                            Đăng xuất
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </button>
                                     </div>
                                 </div>
 
@@ -83,7 +68,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
         integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./admin/assets/js/main.js"></script>
 </body>
 
 </html>

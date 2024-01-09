@@ -2,6 +2,7 @@
 namespace TruyenTranh\Models;
 
 use TruyenTranh\Base;
+use TruyenTranh\Unit;
 
 class Category extends Base {
 
@@ -10,8 +11,8 @@ class Category extends Base {
      * @param bool $all
      * @return array
      */
-    public function get(bool $all = false) {
-        $result_selected = $this->select('categories', []);
+    public function getAll() {
+        $result_selected = $this->select('category_default_list', []);
         $results = [];
         foreach($result_selected as $val) {
             $results[] = $val;
@@ -23,12 +24,21 @@ class Category extends Base {
     /**
      * Get data from Category Table
      * @param string $name
-     * @return array
+     * @return bool
      */
-    public function create(string $name) {
-        return $this->query("INSERT INTO category_default_list VALUES ($name)");
+    public function add(string $name) {
+        $slug = Unit::createFriendlyText($name);
+        $result = $this->insert('category_default_list', ['slug', 'name'], [$slug, $name]);
+        return $result;
     }
     
-    public function delete(string $name) {
+    /**
+     * Get data from Category Table
+     * @param string $category_id
+     * @return bool
+     */
+    public function remove(string $category_id) {
+        $result = $this->delete('category_default_list', ['category_id = ' . $category_id]);
+        return $result;
     }
 }

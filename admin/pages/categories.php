@@ -2,6 +2,28 @@
 use TruyenTranh\Models\Category;
 
 $category = new Category();
+
+if (isset($_GET['method'])) {
+    if ($_GET['method'] == 'post') {
+        if (isset($_POST['cat_name']) && $_POST['cat_name'] !== '') {
+            $result = $category->add($_POST['cat_name']);
+            if ($result) {
+                header("Location: index.php?redirector=admin&page=categories");
+            } else {
+                echo '<script> alert("Đã tồn tại thể loại này"); </script>';
+            }
+        } else {
+            echo '<script> alert("Không được để trống"); </script>';
+        }
+    } elseif ($_GET['method'] == 'delete') {
+        if (isset($_POST['category_id']) && $_POST['category_id'] !== '') {
+            $result = $category->remove($_POST['category_id']);
+            if ($result) {
+                header("Location: index.php?redirector=admin&page=categories");
+            }
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,30 +63,76 @@ $category = new Category();
                         <div class="body__wrap">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-11">
+                                    <div class="col">
                                         <h1 class="body__wrap-title">
-                                            Trang chủ
+                                            QUẢN LÝ THỂ LOẠI
                                         </h1>
-                                    </div>
-                                    <div class="col-1">
-                                        <button class="btn btn-dark body_wrap-user-btn">
-                                            <i class="fa-solid fa-user"></i>
-
-                                            <div class="body_wrap-user-sub">
-                                                <ul class="body_wrap-user-list">
-                                                    <li class="body_wrap-user-item">
-                                                        <a href="" class="body_wrap-user-link">
-                                                            Đăng xuất
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </button>
                                     </div>
                                 </div>
 
-                                
+
                                 <!-- Page index -->
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <h2 class="body__wrap-subtitle">Thêm thể loại bên dưới</h2>
+                                        <form action="?redirector=admin&page=categories&method=post" method="post"
+                                            class="body__wrap-form-add">
+                                            <div class="body__wrap-form-add-group">
+                                                <label for="cat-name" class="body__wrap-form-add-label">Tên thể
+                                                    loại</label>
+                                                <input type="text" id="cat-name" name="cat_name"
+                                                    class="body__wrap-form-add-input" required>
+                                            </div>
+
+                                            <div class="body__wrap-form-add-group">
+                                                <input type="submit" id="cat-submit" name="cat_submit"
+                                                    class="btn body__wrap-form-add-submit btn-dark" value="Thêm">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <div class="body__wrap-category">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    Tên thể loại
+                                                </div>
+                                                <div class="col-5">
+                                                    Tên đường dẫn
+                                                </div>
+                                                <div class="col-2">
+                                                    Hành Động
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                            foreach($category->getAll() as $val) {
+                                            ?>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <?=$val['name']?>
+                                                </div>
+                                                <div class="col-5">
+                                                    <?=$val['slug']?>
+                                                </div>
+                                                <div class="col-2">
+                                                    <form action="?redirector=admin&page=categories&method=delete" method="post"
+                                                        class="body__wrap-category-action-form">
+                                                        <input type="text" name="category_id" value="<?=$val['category_id']?>" hidden>
+                                                        <input
+                                                            class="btn btn-danger body__wrap-category-action-form-btn"
+                                                            type="submit" value="Xóa">
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -74,7 +142,8 @@ $category = new Category();
         <footer class="footer">
             <div class="footer__copyright">
                 <p class="footer__copyright-text">
-                    © 2024 Bản quyền giao diện [Le Van Loc, Truong Muu Tan, Tran Vu Duy] - Trang Quản Lý Truyện Tranh
+                    © 2024 Bản quyền giao diện [Le Van Loc, Truong Muu Tan, Tran Vu Duy] - Trang Quản Lý Truyện
+                    Tranh
                 </p>
             </div>
         </footer>

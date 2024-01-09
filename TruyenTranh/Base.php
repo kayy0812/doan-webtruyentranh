@@ -160,7 +160,7 @@ class Base
         if (!empty($where)) {
             $query .= " WHERE " . implode(", ", $where);
         }
-        echo $query;
+        
         if (mysqli_query($this->db_array, $query)) {
             return true;
         }
