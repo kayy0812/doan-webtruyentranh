@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 03, 2024 lúc 10:19 PM
+-- Thời gian đã tạo: Th1 09, 2024 lúc 09:18 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.0.30
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,6 +41,7 @@ CREATE TABLE `authors` (
 
 CREATE TABLE `category_default_list` (
   `category_id` int(4) NOT NULL,
+  `slug` varchar(50) NOT NULL,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -259,7 +260,7 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT cho bảng `category_default_list`
 --
 ALTER TABLE `category_default_list`
-  MODIFY `category_id` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `chapters`
