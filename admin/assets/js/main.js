@@ -1,12 +1,11 @@
-const userBtn = document.querySelector(".body_wrap-user-btn");
-const userSub = document.querySelector(".body_wrap-user-sub");
 
-userBtn.addEventListener("click", () => {
-    console.log(userSub.classList.contains('active'))
-    if (!userSub.classList.contains('active')) {
-        userSub.classList.add("active");
-    } else {
-        userSub.classList.remove("active");
-    }
-});
+// Notify function
+function notifyElm(text, type = 'info') {
+    const notify = document.querySelector("#notify");
+    notify.innerHTML = `<div class="alert alert-${type}" role="alert">${text}</div>`;
+
+    setTimeout(() => {
+    notify.innerHTML = null;
+    }, 5000);
+}
  

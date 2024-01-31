@@ -13,8 +13,8 @@ define("DB_PASS", '');
 
 $testBase = new Base();
 
-if (isset($_GET['redirector'])) {
-    $redirector = $_GET['redirector'];
+if (isset($_GET['route'])) {
+    $redirector = $_GET['route'];
 
     if ($redirector) {
         switch ($redirector) {
@@ -29,4 +29,3 @@ if (isset($_GET['redirector'])) {
 } else {
     // require ('./Pages/Home.php');
 }
-?>

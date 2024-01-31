@@ -6,13 +6,15 @@ use TruyenTranh\Unit;
 
 class Category extends Base {
 
+    private $table = 'category_default_list';
+
     /**
      * Get data from Category Table
      * @param bool $all
      * @return array
      */
     public function getAll() {
-        $result_selected = $this->select('category_default_list', []);
+        $result_selected = $this->select($this->table, []);
         $results = [];
         foreach($result_selected as $val) {
             $results[] = $val;
@@ -24,11 +26,12 @@ class Category extends Base {
     /**
      * Get data from Category Table
      * @param string $name
+     * @param string $description
      * @return bool
      */
-    public function add(string $name) {
+    public function add(string $name, string $description) {
         $slug = Unit::createFriendlyText($name);
-        $result = $this->insert('category_default_list', ['slug', 'name'], [$slug, $name]);
+        $result = $this->insert($this->table, ['slug', 'name', 'description'], [$slug, $name, $description]);
         return $result;
     }
     
@@ -38,7 +41,7 @@ class Category extends Base {
      * @return bool
      */
     public function remove(string $category_id) {
-        $result = $this->delete('category_default_list', ['category_id = ' . $category_id]);
+        $result = $this->delete($this->table, ['category_id = ' . $category_id]);
         return $result;
     }
 }

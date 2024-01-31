@@ -42,3 +42,8 @@ html {
     color: var(--white-color);
     font-size: 1.8rem;
 }
+
+#notify {
+    margin-top: 8px;
+    font-size: 1.6rem;
+}

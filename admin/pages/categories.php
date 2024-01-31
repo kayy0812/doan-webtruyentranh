@@ -1,26 +1,35 @@
 <?php
 use TruyenTranh\Models\Category;
-
 $category = new Category();
 
-if (isset($_GET['method'])) {
-    if ($_GET['method'] == 'post') {
-        if (isset($_POST['cat_name']) && $_POST['cat_name'] !== '') {
-            $result = $category->add($_POST['cat_name']);
-            if ($result) {
-                header("Location: index.php?redirector=admin&page=categories");
-            } else {
-                echo '<script> alert("Đã tồn tại thể loại này"); </script>';
-            }
-        } else {
-            echo '<script> alert("Không được để trống"); </script>';
+if (isset($_POST['cat_submit-add'])) {
+    if (isset($_POST['cat_name']) && $_POST['cat_name'] !== '') {
+        try {
+            $category->add($_POST['cat_name'], $_POST['cat_desc']);
+
+            $_SESSION['txtNotify'] = 'Đã thêm ' .$_POST['cat_name'] . ' thành công';
+            $_SESSION['txtNotifyCode'] = 'success';
+        } catch (Exception $e) {
+
+            $_SESSION['txtNotify'] = $e->getMessage();
+            $_SESSION['txtNotifyCode'] = 'danger';
         }
-    } elseif ($_GET['method'] == 'delete') {
-        if (isset($_POST['category_id']) && $_POST['category_id'] !== '') {
-            $result = $category->remove($_POST['category_id']);
-            if ($result) {
-                header("Location: index.php?redirector=admin&page=categories");
-            }
+    } else {
+        $_SESSION['txtNotify'] = 'Không được để trống!';
+        $_SESSION['txtNotifyCode'] = 'danger';
+    }
+}
+
+if (isset($_POST['cat_submit-delete'])) {
+    if (isset($_POST['category_id']) && $_POST['category_id'] !== '') {
+        try {
+            $category->remove($_POST['category_id']);
+            $_SESSION['txtNotify'] = 'Đã xóa thành công';
+            $_SESSION['txtNotifyCode'] = 'success';
+        } catch (Exception $e) {
+
+            $_SESSION['txtNotify'] = 'Không thể xóa được!' . $e->getMessage();
+            $_SESSION['txtNotifyCode'] = 'danger';
         }
     }
 }
@@ -75,17 +84,23 @@ if (isset($_GET['method'])) {
                                 <div class="row mt-3">
                                     <div class="col">
                                         <h2 class="body__wrap-subtitle">Thêm thể loại bên dưới</h2>
-                                        <form action="?redirector=admin&page=categories&method=post" method="post"
+                                        <form action="" method="post"
                                             class="body__wrap-form-add">
                                             <div class="body__wrap-form-add-group">
                                                 <label for="cat-name" class="body__wrap-form-add-label">Tên thể
                                                     loại</label>
                                                 <input type="text" id="cat-name" name="cat_name"
-                                                    class="body__wrap-form-add-input" required>
+                                                    class="body__wrap-form-add-input" placeholder="Nhập tên thể loại ... " required>
                                             </div>
 
                                             <div class="body__wrap-form-add-group">
-                                                <input type="submit" id="cat-submit" name="cat_submit"
+                                                <label for="cat_desc" class="body__wrap-form-add-label">Mô tả thể loại</label>
+                                                <input type="text" id="cat_desc" name="cat_desc"
+                                                    class="body__wrap-form-add-input" placeholder="Mô tả thể loại truyện ..." required>
+                                            </div>
+
+                                            <div class="body__wrap-form-add-group">
+                                                <input type="submit" id="cat-submit" name="cat_submit-add"
                                                     class="btn body__wrap-form-add-submit btn-dark" value="Thêm">
                                             </div>
                                         </form>
@@ -95,44 +110,64 @@ if (isset($_GET['method'])) {
                                 <div class="row mt-3">
                                     <div class="col">
                                         <div class="body__wrap-category">
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    Tên thể loại
+                                            <div class="body__wrap-category-wrap">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        STT
+                                                    </div>
+                                                    <div class="col-2">
+                                                        Tên thể loại
+                                                    </div>
+                                                    <div class="col-2">
+                                                        Tên đường dẫn
+                                                    </div>
+                                                    <div class="col-5">
+                                                        Mô tả thể loại
+                                                    </div>
+                                                    <div class="col-2">
+                                                        Hành Động
+                                                    </div>
                                                 </div>
-                                                <div class="col-5">
-                                                    Tên đường dẫn
+    
+                                                <?php
+                                                foreach($category->getAll() as $i => $val) {
+                                                ?>
+                                                <div class="row mt-2">
+                                                    <div class="col-1">
+                                                        <?=$i + 1?>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <?=$val['name']?>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <?=$val['slug']?>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <?=strlen($val['description']) > 40 ? substr($val['description'], 0, 40) . '...' : $val['description'];?>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <form action="" method="post"
+                                                            class="body__wrap-category-action-form">
+                                                            <input type="text" name="category_id" value="<?=$val['category_id']?>" hidden>
+                                                            <input
+                                                                class="btn btn-danger body__wrap-category-action-form-btn"
+                                                                type="submit" name="cat_submit-delete" value="Xóa">
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                                <div class="col-2">
-                                                    Hành Động
-                                                </div>
+    
+                                                <?php } ?>
                                             </div>
-
-                                            <?php
-                                            foreach($category->getAll() as $val) {
-                                            ?>
-                                            <div class="row">
-                                                <div class="col-5">
-                                                    <?=$val['name']?>
-                                                </div>
-                                                <div class="col-5">
-                                                    <?=$val['slug']?>
-                                                </div>
-                                                <div class="col-2">
-                                                    <form action="?redirector=admin&page=categories&method=delete" method="post"
-                                                        class="body__wrap-category-action-form">
-                                                        <input type="text" name="category_id" value="<?=$val['category_id']?>" hidden>
-                                                        <input
-                                                            class="btn btn-danger body__wrap-category-action-form-btn"
-                                                            type="submit" value="Xóa">
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
-
+                                
+                                <!-- Notify -->
+                                <div class="row">
+                                    <div class="col">
+                                        <div id="notify"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,7 +193,14 @@ if (isset($_GET['method'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
         integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="./admin/assets/js/main.js"></script>
+    <?php 
+    if(isset($_SESSION['txtNotify']) && isset($_SESSION['txtNotifyCode'])) {
+        echo "<script> notifyElm(\"".$_SESSION['txtNotify']."\", \"".$_SESSION['txtNotifyCode']."\"); </script>";
+    }
+
+    session_destroy();
+    ?>
 </body>
 
 </html>

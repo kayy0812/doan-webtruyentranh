@@ -2,7 +2,7 @@
 <header class="header">
     <div class="header__wrap d-flex flex-column">
         <div class="header__wrap-brand">
-            <a href="./?redirector=admin" class="header__wrap-brand-name">
+            <a href="./?route=admin" class="header__wrap-brand-name">
                 Comics Toon
             </a>
         </div>
@@ -13,20 +13,20 @@
         <div class="header__wrap-menu">
             <ul class="header__wrap-menu-list">
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=admin&page=home"
+                    <a href="./?route=admin&page=home"
                         class="header__wrap-menu-link <?= $page == 'home' ? 'active' : ''; ?>">Trang
                         chủ</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=admin&page=comics"
+                    <a href="./?route=admin&page=comics"
                         class="header__wrap-menu-link <?= $page == 'comics' ? 'active' : ''; ?>">Truyện</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=admin&page=chapters"
+                    <a href="./?route=admin&page=chapters"
                         class="header__wrap-menu-link <?= $page == 'chapters' ? 'active' : ''; ?>">Tập</a>
                 </li>
                 <li class="header__wrap-menu-item">
-                    <a href="./?redirector=admin&page=categories"
+                    <a href="./?route=admin&page=categories"
                         class="header__wrap-menu-link <?= $page == 'categories' ? 'active' : ''; ?>">Thể loại</a>
                 </li>
             </ul>

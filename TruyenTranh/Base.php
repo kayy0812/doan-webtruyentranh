@@ -110,10 +110,10 @@ class Base
 
 
         // echo $query;
-        if (mysqli_query($this->db_array, $query)) {
-            return true;
+        if (!mysqli_query($this->db_array, $query)) {
+            throw new Exception('Có lỗi khi thêm!');
         }
-        return throw new Exception(mysqli_error($this->db_array));
+        return true;
     }
 
     /**
