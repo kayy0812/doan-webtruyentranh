@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 09, 2024 lúc 09:18 PM
+-- Thời gian đã tạo: Th1 31, 2024 lúc 01:44 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -42,8 +42,45 @@ CREATE TABLE `authors` (
 CREATE TABLE `category_default_list` (
   `category_id` int(4) NOT NULL,
   `slug` varchar(50) NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  `description` varchar(500) NOT NULL DEFAULT 'Chưa có thông tin cho thể loại truyện này :('
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_default_list`
+--
+
+INSERT INTO `category_default_list` (`category_id`, `slug`, `name`, `description`) VALUES
+(74, '-dsfads', 'àdsfads', 'Chưa có thông tin cho thể loại truyện này :('),
+(75, 'fdsaff', 'fdsaff', 'Chưa có thông tin cho thể loại truyện này :('),
+(76, '-dfdsafds', 'ádfdsafds', 'Chưa có thông tin cho thể loại truyện này :('),
+(77, '-dsafdsaf', 'àdsafdsaf', 'Chưa có thông tin cho thể loại truyện này :('),
+(78, '-dsafdsa', 'àdsafdsa', 'Chưa có thông tin cho thể loại truyện này :('),
+(79, 'adfsfdsaf', 'adfsfdsaf', 'Chưa có thông tin cho thể loại truyện này :('),
+(80, 'sdads', 'SDAds', 'Chưa có thông tin cho thể loại truyện này :('),
+(81, 'rewqrew', 'rewqrew', 'Chưa có thông tin cho thể loại truyện này :('),
+(115, 'rewrwe', 'rewrwe', 'Chưa có thông tin cho thể loại truyện này :('),
+(117, 'rewrew', 'rewrew', 'Chưa có thông tin cho thể loại truyện này :('),
+(119, 'gfdsgfdg', 'gfdsgfdg', 'Chưa có thông tin cho thể loại truyện này :('),
+(279, 'fewfds', 'fewfds', 'Chưa có thông tin cho thể loại truyện này :('),
+(282, 'vxcvcxvc', 'vxcvcxvc', 'Chưa có thông tin cho thể loại truyện này :('),
+(305, 'hgfhfghfg', 'hgfhfghfg', 'Chưa có thông tin cho thể loại truyện này :('),
+(320, 'jhgkjhgkjh', 'jhgkjhgkjh', 'Chưa có thông tin cho thể loại truyện này :('),
+(322, 'hgfdhgf', 'hgfdhgf', 'Chưa có thông tin cho thể loại truyện này :('),
+(323, 'bvcbvc', 'bvcbvc', 'Chưa có thông tin cho thể loại truyện này :('),
+(324, 'tretre', 'tretre', 'Chưa có thông tin cho thể loại truyện này :('),
+(325, 'mbnmnbm', 'mbnmnbm', 'Chưa có thông tin cho thể loại truyện này :('),
+(326, 'bcvxbvcb', 'bcvxbvcb', 'Chưa có thông tin cho thể loại truyện này :('),
+(327, 'nmnmnm', 'nmnmnm', 'Chưa có thông tin cho thể loại truyện này :('),
+(328, 'fgbb', 'fgbb', 'Chưa có thông tin cho thể loại truyện này :('),
+(329, 'ytryt', 'ytryt', 'Chưa có thông tin cho thể loại truyện này :('),
+(330, 'jbvnfmn', 'jbvnfmn', 'Chưa có thông tin cho thể loại truyện này :('),
+(331, 'yej', 'yej', 'Chưa có thông tin cho thể loại truyện này :('),
+(332, 'kjhkfj', 'kjhkfj', 'Chưa có thông tin cho thể loại truyện này :('),
+(333, 'dsfdsf', 'dsfdsf', 'Chưa có thông tin cho thể loại truyện này :('),
+(336, 'bvcbvcb', 'bvcbvcb', 'Chưa có thông tin cho thể loại truyện này :('),
+(340, 'fdsv', 'fdsv', 'Chưa có thông tin cho thể loại truyện này :('),
+(353, 'trinh-th-m', 'Trinh Thám', 'Truyện chuyện về những vụ án');
 
 -- --------------------------------------------------------
 
@@ -163,16 +200,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
---
-
-INSERT INTO `users` (`user_id`, `first_name`, `middle_name`, `last_name`, `username`, `role_id`, `hashed_password`, `created_at`, `updated_at`) VALUES
-(26, 'Le', 'Van', 'Loc', '<levanloc811></levanloc811>', 0, '$2y$10$iSUxXzLLCjyoiTmQahPDV.h0TMDwn0O2k9bpsJLWcKNYD6Hv/aUH2', '2023-12-31 19:41:21', '2023-12-31 19:41:21'),
-(30, 'Le', 'Van', 'Loc', 'levanloc811', 0, '$2y$10$0IA80U5y1PwRJ3gUQKPHUeuERt.mORl0u4Uky7V5va3deD/KWBu.K', '2023-12-31 19:42:12', '2023-12-31 19:42:12'),
-(54, 'Le', 'Van', 'Loc', 'levanloc8113', 0, '$2y$10$PEJ9uhtaaA3qYm1W94.vsOwJ3Ahoaa2GLDu2EcEccQSaJCrXkEvOi', '2023-12-31 19:53:25', '2023-12-31 19:53:25'),
-(66, 'Le', 'Van', 'Loc', 'levanloc81134', 0, '$2y$10$Knzj33Yl2Mk54WU07fDW9Or/Qe6sqbAjYdF8F.ath9rtbnCpWTywK', '2023-12-31 19:53:41', '2023-12-31 19:53:41');
-
---
 -- Chỉ mục cho các bảng đã đổ
 --
 
@@ -186,7 +213,8 @@ ALTER TABLE `authors`
 -- Chỉ mục cho bảng `category_default_list`
 --
 ALTER TABLE `category_default_list`
-  ADD PRIMARY KEY (`category_id`);
+  ADD PRIMARY KEY (`category_id`),
+  ADD UNIQUE KEY `slug` (`slug`);
 
 --
 -- Chỉ mục cho bảng `chapters`
@@ -215,8 +243,8 @@ ALTER TABLE `comics`
 -- Chỉ mục cho bảng `comic_category`
 --
 ALTER TABLE `comic_category`
-  ADD PRIMARY KEY (`comic_id`,`category_id`),
-  ADD KEY `comic_category_FK` (`category_id`);
+  ADD KEY `comic_category_FK` (`category_id`),
+  ADD KEY `comic_id` (`comic_id`);
 
 --
 -- Chỉ mục cho bảng `comments`
@@ -260,7 +288,7 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT cho bảng `category_default_list`
 --
 ALTER TABLE `category_default_list`
-  MODIFY `category_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `category_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=354;
 
 --
 -- AUTO_INCREMENT cho bảng `chapters`
@@ -340,7 +368,8 @@ ALTER TABLE `comments`
 -- Các ràng buộc cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_FK_role` FOREIGN KEY (`role_id`) REFERENCES `role_default_list` (`role_id`);
+  ADD CONSTRAINT `users_FK_role` FOREIGN KEY (`role_id`) REFERENCES `role_default_list` (`role_id`),
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_permissions` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
