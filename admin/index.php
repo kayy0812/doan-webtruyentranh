@@ -7,6 +7,9 @@ if ($redirector == 'admin' || $redirector == 'thaytrinhno1') {
             case 'categories': 
                 require_once './admin/pages/categories.php';
                 break;
+            case 'comics': 
+                require_once './admin/pages/comics.php';
+                break;
             case 'home': 
                 require_once './admin/pages/home.php';
             default: 

@@ -1,39 +1,10 @@
 <?php
 use TruyenTranh\Models\Category;
+use TruyenTranh\Models\Status;
 
 $category = new Category();
+$status = new Status();
 
-if (isset($_POST['cat_submit-add'])) {
-    if (isset($_POST['cat_name']) && $_POST['cat_name'] !== '') {
-        try {
-            $category->add($_POST['cat_name'], $_POST['cat_desc']);
-
-            $_SESSION['txtNotify'] = 'Đã thêm ' . $_POST['cat_name'] . ' thành công';
-            $_SESSION['txtNotifyCode'] = 'success';
-        } catch (Exception $e) {
-
-            $_SESSION['txtNotify'] = $e->getMessage();
-            $_SESSION['txtNotifyCode'] = 'danger';
-        }
-    } else {
-        $_SESSION['txtNotify'] = 'Không được để trống!';
-        $_SESSION['txtNotifyCode'] = 'danger';
-    }
-}
-
-if (isset($_POST['cat_submit-delete'])) {
-    if (isset($_POST['category_id']) && $_POST['category_id'] !== '') {
-        try {
-            $category->remove($_POST['category_id']);
-            $_SESSION['txtNotify'] = 'Đã xóa thành công';
-            $_SESSION['txtNotifyCode'] = 'success';
-        } catch (Exception $e) {
-
-            $_SESSION['txtNotify'] = 'Không thể xóa được!' . $e->getMessage();
-            $_SESSION['txtNotifyCode'] = 'danger';
-        }
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +29,7 @@ if (isset($_POST['cat_submit-delete'])) {
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./admin/assets/css/base.css?v=<?= rand() ?>">
     <link rel="stylesheet" href="./admin/assets/css/main.css?v=<?= rand() ?>">
-    <title>Quản lý thể loại truyện | Admin Comics Page</title>
+    <title>Quản lý truyện | Admin Comics Page</title>
 </head>
 
 <body>
@@ -75,7 +46,7 @@ if (isset($_POST['cat_submit-delete'])) {
                                 <div class="row">
                                     <div class="col">
                                         <h1 class="body__wrap-title">
-                                            QUẢN LÝ THỂ LOẠI
+                                            QUẢN LÝ TRUYỆN
                                         </h1>
                                     </div>
                                 </div>
@@ -84,28 +55,80 @@ if (isset($_POST['cat_submit-delete'])) {
                                 <!-- Page index -->
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <h2 class="body__wrap-subtitle">Thêm thể loại bên dưới</h2>
+                                        <h2 class="body__wrap-subtitle">Thêm truyện ở bên dưới</h2>
                                         <form action="" method="post" class="body__wrap-form-add">
-                                            <div class="body__wrap-form-add-group me-3">
-                                                <label for="cat-name" class="body__wrap-form-add-label">Tên thể
-                                                    loại</label>
-                                                <input type="text" id="cat-name" name="cat_name"
-                                                    class="body__wrap-form-add-input"
-                                                    placeholder="Nhập tên thể loại ... " required>
+
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-name"
+                                                                class="body__wrap-form-add-label">Tên truyện</label>
+                                                            <input type="text" id="comic-name" name="comic_name"
+                                                                class="body__wrap-form-add-input"
+                                                                placeholder="Nhập tên truyện ... " required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-other-name"
+                                                                class="body__wrap-form-add-label">Tên khác</label>
+                                                            <input type="text" id="comic-other-name"
+                                                                name="comic-other-name"
+                                                                class="body__wrap-form-add-input"
+                                                                placeholder="Tên gọi khác của truyện ... " required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-3">
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-desc" class="body__wrap-form-add-label">Mô
+                                                                tả</label>
+                                                            <textarea id="comic-desc" name="comic-desc"
+                                                                class="body__wrap-form-add-textarea" rows="5"
+                                                                placeholder="Mô tả ngắn gọn nội dung truyện ... " required></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-3">
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-author" class="body__wrap-form-add-label">Được đăng bởi</label>
+                                                            <input type="text" id="comic-author"
+                                                                name="comic-author"
+                                                                class="body__wrap-form-add-input"
+                                                                placeholder="Người đăng" required value="3231" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-status" class="body__wrap-form-add-label">Trạng thái truyện</label>
+                                                            <select class="form-select body__wrap-form-select" name="comic-status" id="comic-status">
+                                                                <option selected>- Chọn trạng thái truyện -</option>
+                                                                <?php foreach ($status->getAllStatus() as $i => $val) {?>
+                                                                    <option value="<?=$val['status_id']?>"><?=$val['name']?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-3">
+                                                    <div class="col-2 offset-5">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <input type="submit" id="cat-submit" name="cat_submit-add"
+                                                                class="btn body__wrap-form-add-submit btn-dark"
+                                                                value="Thêm">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="body__wrap-form-add-group me-3">
-                                                <label for="cat_desc" class="body__wrap-form-add-label">Mô tả thể
-                                                    loại</label>
-                                                <input type="text" id="cat_desc" name="cat_desc"
-                                                    class="body__wrap-form-add-input"
-                                                    placeholder="Mô tả thể loại truyện ..." required>
-                                            </div>
-
-                                            <div class="body__wrap-form-add-group">
-                                                <input type="submit" id="cat-submit" name="cat_submit-add"
-                                                    class="btn body__wrap-form-add-submit btn-dark" value="Thêm">
-                                            </div>
                                         </form>
                                     </div>
                                 </div>

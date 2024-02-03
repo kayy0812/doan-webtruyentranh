@@ -22,12 +22,12 @@ html {
     left: 0;
     bottom: 0;
     right: 0;
+    overflow-y: auto;
 }
 
 
 
 .footer {
-    height: 10%;
     background-color: var(--primary-bg-color);
 }
 
@@ -41,6 +41,7 @@ html {
 .footer__copyright-text {
     color: var(--white-color);
     font-size: 1.8rem;
+    padding: 20px;
 }
 
 #notify {
