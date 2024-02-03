@@ -13,7 +13,7 @@ class Category extends Base {
      * @param bool $all
      * @return array
      */
-    public function getAll() {
+    public function getAllCategory() {
         $result_selected = $this->select($this->table, []);
         $results = [];
         foreach($result_selected as $val) {

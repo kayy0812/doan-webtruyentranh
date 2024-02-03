@@ -133,7 +133,7 @@ if (isset($_POST['cat_submit-delete'])) {
                                                 </div>
 
                                                 <?php
-                                                foreach ($category->getAll() as $i => $val) {
+                                                foreach ($category->getAllCategory() as $i => $val) {
                                                     ?>
                                                     <div class="row mt-2">
                                                         <div class="col-1">

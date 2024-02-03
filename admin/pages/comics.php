@@ -1,9 +1,24 @@
 <?php
 use TruyenTranh\Models\Category;
 use TruyenTranh\Models\Status;
+use TruyenTranh\Models\Comic;
 
 $category = new Category();
 $status = new Status();
+$comic = new Comic();
+
+if (isset($_POST['cat_submit-add'])) {
+    $data = $_POST;
+
+    try {
+        $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats']);
+        $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
+        $_SESSION['txtNotifyCode'] = 'success';
+    } catch (Exception $e) {
+        $_SESSION['txtNotify'] = $e->getMessage();
+        $_SESSION['txtNotifyCode'] = 'danger';
+    }
+}
 
 ?>
 
@@ -89,7 +104,8 @@ $status = new Status();
                                                                 tả</label>
                                                             <textarea id="comic-desc" name="comic-desc"
                                                                 class="body__wrap-form-add-textarea" rows="5"
-                                                                placeholder="Mô tả ngắn gọn nội dung truyện ... " required></textarea>
+                                                                placeholder="Mô tả ngắn gọn nội dung truyện ... "
+                                                                required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,23 +113,63 @@ $status = new Status();
                                                 <div class="row mt-3">
                                                     <div class="col">
                                                         <div class="body__wrap-form-add-group">
-                                                            <label for="comic-author" class="body__wrap-form-add-label">Được đăng bởi</label>
-                                                            <input type="text" id="comic-author"
-                                                                name="comic-author"
-                                                                class="body__wrap-form-add-input"
-                                                                placeholder="Người đăng" required value="3231" disabled>
+                                                            <label for="comic-upload-by"
+                                                                class="body__wrap-form-add-label">Được đăng bởi</label>
+                                                            <input type="text" id="comic-upload-by"
+                                                                name="comic-upload-by" class="body__wrap-form-add-input"
+                                                                placeholder="Người đăng ..." value="3231">
                                                         </div>
                                                     </div>
 
                                                     <div class="col">
                                                         <div class="body__wrap-form-add-group">
-                                                            <label for="comic-status" class="body__wrap-form-add-label">Trạng thái truyện</label>
-                                                            <select class="form-select body__wrap-form-select" name="comic-status" id="comic-status">
-                                                                <option selected>- Chọn trạng thái truyện -</option>
-                                                                <?php foreach ($status->getAllStatus() as $i => $val) {?>
-                                                                    <option value="<?=$val['status_id']?>"><?=$val['name']?></option>
+                                                            <label for="comic-author"
+                                                                class="body__wrap-form-add-label">Tác giả / Nhà Sản
+                                                                Xuất</label>
+                                                            <input type="text" id="comic-author" name="comic-author"
+                                                                class="body__wrap-form-add-input"
+                                                                placeholder="Tác giả / Nhà sản xuất" value="1">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label for="comic-status"
+                                                                class="body__wrap-form-add-label">Trạng thái
+                                                                truyện</label>
+                                                            <select class="form-select body__wrap-form-select"
+                                                                name="comic-status" id="comic-status">
+                                                                <!-- <option selected>- Chọn trạng thái truyện -</option> -->
+                                                                <?php foreach ($status->getAllStatus() as $i => $val) { ?>
+                                                                    <option value="<?= $val['status_id'] ?>">
+                                                                        <?= $val['name'] ?>
+                                                                    </option>
                                                                 <?php } ?>
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-3">
+                                                    <div class="col">
+                                                        <div class="body__wrap-form-add-group">
+                                                            <label class="body__wrap-form-add-label">Chọn thể
+                                                                loại</label>
+
+                                                            <div class="body__wrap-form-add-checkbox-wrap">
+                                                                <?php foreach ($category->getAllCategory() as $i => $val) { ?>
+                                                                    <div class="body__wrap-form-add-checkbox">
+                                                                        <input class="body__wrap-form-add-checkbox-input"
+                                                                            type="checkbox" name="comic-cats[]"
+                                                                            id="comic-cats-<?= $i ?>"
+                                                                            value="<?= $val['category_id'] ?>">
+                                                                        <label class="body__wrap-form-add-checkbox-label"
+                                                                            for="comic-cats-<?= $i ?>">
+                                                                            <?= $val['name'] ?>
+                                                                        </label>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -125,6 +181,13 @@ $status = new Status();
                                                                 class="btn body__wrap-form-add-submit btn-dark"
                                                                 value="Thêm">
                                                         </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Notify -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div id="notify"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -156,7 +219,7 @@ $status = new Status();
                                                 </div>
 
                                                 <?php
-                                                foreach ($category->getAll() as $i => $val) {
+                                                foreach ($category->getAllCategory() as $i => $val) {
                                                     ?>
                                                     <div class="row mt-2">
                                                         <div class="col-1">
@@ -189,12 +252,7 @@ $status = new Status();
                                     </div>
                                 </div>
 
-                                <!-- Notify -->
-                                <div class="row">
-                                    <div class="col">
-                                        <div id="notify"></div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

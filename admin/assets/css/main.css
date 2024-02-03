@@ -156,3 +156,31 @@
 .body__wrap-form-select {
     font-size: 1.6rem;
 }
+
+.body__wrap-form-add-checkbox-wrap {
+    user-select: none;
+}
+
+.body__wrap-form-add-checkbox {
+    display: inline-block;
+    margin: 4px 0;
+}
+
+.body__wrap-form-add-checkbox-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #ccc;
+    color: #000;
+    cursor: pointer;
+}
+
+.body__wrap-form-add-checkbox-input {
+    appearance: none;
+}
+
+.body__wrap-form-add-checkbox-input:checked + 
+.body__wrap-form-add-checkbox-label {
+    background-color: rgb(102, 102, 241);
+    color: #fff;
+}
