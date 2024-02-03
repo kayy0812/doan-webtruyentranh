@@ -46,7 +46,7 @@ class Comic extends Base {
             [$name, $other_name, $description, $slug, $upload_by, $status, $author]);
 
         foreach ($cats as $cat) {
-            $this->addCategoryToComic($cat, $this->getComicIdBySlug($slug));
+            $this->addCategoryToComic($this->getComicIdBySlug($slug), $cat);
         }
         return $result;
     }
