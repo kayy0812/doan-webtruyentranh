@@ -58,7 +58,7 @@ class Comic extends Base {
      * @return bool
      */
 
-    public function addCategoryToComic(int $comic_id, int $category_id) {
+    private function addCategoryToComic(int $comic_id, int $category_id) {
         $result = $this->insert($this->table_category, 
             ['comic_id', 'category_id'],
             [$comic_id, $category_id]);

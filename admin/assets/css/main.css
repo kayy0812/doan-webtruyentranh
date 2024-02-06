@@ -68,6 +68,29 @@
     color: var(--text-color); 
 }
 
+.header__wrap-menu-sub {
+    list-style: none;
+    list-style-type: none;
+    display: none;
+}
+
+.header__wrap-menu-sub.active {
+    display: block;
+}
+
+.header__wrap-menu-sub-link {
+    color: var(--white-color);
+    font-size: 1.4rem;
+    display: block;
+    padding: 3px 0;
+    text-decoration: none;
+}
+
+.header__wrap-menu-sub-link:hover,
+.header__wrap-menu-sub-link.active {
+    text-decoration: underline;
+}
+
 .header__wrap-footer-btn-list {
     display: flex;
     justify-content: space-between;

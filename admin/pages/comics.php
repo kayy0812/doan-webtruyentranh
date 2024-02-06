@@ -7,19 +7,9 @@ $category = new Category();
 $status = new Status();
 $comic = new Comic();
 
-if (isset($_POST['cat_submit-add'])) {
-    $data = $_POST;
 
-    try {
-        $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats']);
-        $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
-        $_SESSION['txtNotifyCode'] = 'success';
-    } catch (Exception $e) {
-        $_SESSION['txtNotify'] = $e->getMessage();
-        $_SESSION['txtNotifyCode'] = 'danger';
-    }
-}
-
+if (empty($_GET["action"]))
+    header("Location: ?route=admin&page=comics&action=default");
 ?>
 
 <!DOCTYPE html>
@@ -51,10 +41,10 @@ if (isset($_POST['cat_submit-add'])) {
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <?php require_once './admin/components/header.php' ?>
                 </div>
-                <div class="col-10">
+                <div class="col-9">
                     <div class="body">
                         <div class="body__wrap">
                             <div class="container-fluid">
@@ -67,192 +57,29 @@ if (isset($_POST['cat_submit-add'])) {
                                 </div>
 
 
-                                <!-- Page index -->
-                                <div class="row mt-3">
-                                    <div class="col">
-                                        <h2 class="body__wrap-subtitle">Thêm truyện ở bên dưới</h2>
-                                        <form action="" method="post" class="body__wrap-form-add">
+                                <!-- Add comic page -->
+                                <?php
+                                if (isset($_GET['action'])) {
+                                    if ($_GET['action'] == 'create') {
+                                        if (isset($_POST['cat_submit-add'])) {
+                                            $data = $_POST;
 
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-name"
-                                                                class="body__wrap-form-add-label">Tên truyện</label>
-                                                            <input type="text" id="comic-name" name="comic_name"
-                                                                class="body__wrap-form-add-input"
-                                                                placeholder="Nhập tên truyện ... " required>
-                                                        </div>
-                                                    </div>
+                                            try {
+                                                $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats']);
+                                                $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
+                                                $_SESSION['txtNotifyCode'] = 'success';
+                                            } catch (Exception $e) {
+                                                $_SESSION['txtNotify'] = $e->getMessage();
+                                                $_SESSION['txtNotifyCode'] = 'danger';
+                                            }
+                                        }
 
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-other-name"
-                                                                class="body__wrap-form-add-label">Tên khác</label>
-                                                            <input type="text" id="comic-other-name"
-                                                                name="comic-other-name"
-                                                                class="body__wrap-form-add-input"
-                                                                placeholder="Tên gọi khác của truyện ... " required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-desc" class="body__wrap-form-add-label">Mô
-                                                                tả</label>
-                                                            <textarea id="comic-desc" name="comic-desc"
-                                                                class="body__wrap-form-add-textarea" rows="5"
-                                                                placeholder="Mô tả ngắn gọn nội dung truyện ... "
-                                                                required></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-upload-by"
-                                                                class="body__wrap-form-add-label">Được đăng bởi</label>
-                                                            <input type="text" id="comic-upload-by"
-                                                                name="comic-upload-by" class="body__wrap-form-add-input"
-                                                                placeholder="Người đăng ..." value="3231">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-author"
-                                                                class="body__wrap-form-add-label">Tác giả / Nhà Sản
-                                                                Xuất</label>
-                                                            <input type="text" id="comic-author" name="comic-author"
-                                                                class="body__wrap-form-add-input"
-                                                                placeholder="Tác giả / Nhà sản xuất" value="1">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label for="comic-status"
-                                                                class="body__wrap-form-add-label">Trạng thái
-                                                                truyện</label>
-                                                            <select class="form-select body__wrap-form-select"
-                                                                name="comic-status" id="comic-status">
-                                                                <!-- <option selected>- Chọn trạng thái truyện -</option> -->
-                                                                <?php foreach ($status->getAllStatus() as $i => $val) { ?>
-                                                                    <option value="<?= $val['status_id'] ?>">
-                                                                        <?= $val['name'] ?>
-                                                                    </option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <label class="body__wrap-form-add-label">Chọn thể
-                                                                loại</label>
-
-                                                            <div class="body__wrap-form-add-checkbox-wrap">
-                                                                <?php foreach ($category->getAllCategory() as $i => $val) { ?>
-                                                                    <div class="body__wrap-form-add-checkbox">
-                                                                        <input class="body__wrap-form-add-checkbox-input"
-                                                                            type="checkbox" name="comic-cats[]"
-                                                                            id="comic-cats-<?= $i ?>"
-                                                                            value="<?= $val['category_id'] ?>">
-                                                                        <label class="body__wrap-form-add-checkbox-label"
-                                                                            for="comic-cats-<?= $i ?>">
-                                                                            <?= $val['name'] ?>
-                                                                        </label>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col-2 offset-5">
-                                                        <div class="body__wrap-form-add-group">
-                                                            <input type="submit" id="cat-submit" name="cat_submit-add"
-                                                                class="btn body__wrap-form-add-submit btn-dark"
-                                                                value="Thêm">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Notify -->
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div id="notify"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col">
-                                        <div class="body__wrap-category">
-                                            <div class="body__wrap-category-wrap">
-                                                <div class="row">
-                                                    <div class="col-1">
-                                                        STT
-                                                    </div>
-                                                    <div class="col-2">
-                                                        Tên thể loại
-                                                    </div>
-                                                    <div class="col-2">
-                                                        Tên đường dẫn
-                                                    </div>
-                                                    <div class="col-5">
-                                                        Mô tả thể loại
-                                                    </div>
-                                                    <div class="col-2">
-                                                        Hành Động
-                                                    </div>
-                                                </div>
-
-                                                <?php
-                                                foreach ($category->getAllCategory() as $i => $val) {
-                                                    ?>
-                                                    <div class="row mt-2">
-                                                        <div class="col-1">
-                                                            <?= $i + 1 ?>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <?= $val['name'] ?>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <?= $val['slug'] ?>
-                                                        </div>
-                                                        <div class="col-5">
-                                                            <?= strlen($val['description']) > 40 ? substr($val['description'], 0, 40) . '...' : $val['description']; ?>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <form action="" method="post"
-                                                                class="body__wrap-category-action-form">
-                                                                <input type="text" name="category_id"
-                                                                    value="<?= $val['category_id'] ?>" hidden>
-                                                                <input
-                                                                    class="btn btn-danger body__wrap-category-action-form-btn"
-                                                                    type="submit" name="cat_submit-delete" value="Xóa">
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                                        require_once('./admin/components/comics/create.php');
+                                    } else if ($_GET['action'] == 'default') {
+                                        require_once('./admin/components/comics/default.php');
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -261,15 +88,7 @@ if (isset($_POST['cat_submit-add'])) {
 
             <div class="row">
                 <div class="col">
-                    <footer class="footer">
-                        <div class="footer__copyright">
-                            <p class="footer__copyright-text">
-                                © 2024 Bản quyền giao diện [Le Van Loc, Truong Muu Tan, Tran Vu Duy] - Trang Quản Lý
-                                Truyện
-                                Tranh
-                            </p>
-                        </div>
-                    </footer>
+                    <?php require_once('./admin/components/footer.php') ?>
                 </div>
             </div>
         </div>

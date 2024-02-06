@@ -65,10 +65,10 @@ if (isset($_POST['cat_submit-delete'])) {
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2">
+                <div class="col-3">
                     <?php require_once './admin/components/header.php' ?>
                 </div>
-                <div class="col-10">
+                <div class="col-9">
                     <div class="body">
                         <div class="body__wrap">
                             <div class="container-fluid">
@@ -180,15 +180,7 @@ if (isset($_POST['cat_submit-delete'])) {
 
             <div class="row">
                 <div class="col">
-                    <footer class="footer">
-                        <div class="footer__copyright">
-                            <p class="footer__copyright-text">
-                                © 2024 Bản quyền giao diện [Le Van Loc, Truong Muu Tan, Tran Vu Duy] - Trang Quản Lý
-                                Truyện
-                                Tranh
-                            </p>
-                        </div>
-                    </footer>
+                    <?php require_once('./admin/components/footer.php') ?>
                 </div>
             </div>
         </div>

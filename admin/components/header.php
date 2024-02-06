@@ -1,4 +1,3 @@
-
 <header class="header">
     <div class="header__wrap d-flex flex-column">
         <div class="header__wrap-brand">
@@ -20,10 +19,21 @@
                 <li class="header__wrap-menu-item">
                     <a href="./?route=admin&page=comics"
                         class="header__wrap-menu-link <?= $page == 'comics' ? 'active' : ''; ?>">Truyện</a>
+                    <ul class="header__wrap-menu-sub <?= $page == 'comics' ? 'active' : ''; ?>">
+                        <li class="header__wrap-menu-sub-item">
+                            <a href="./?route=admin&page=comics&action=create"
+                                class="header__wrap-menu-sub-link <?= $action == 'create' ? 'active' : ''; ?>">Thêm truyện</a>
+                        </li>
+                        <li class="header__wrap-menu-sub-item">
+                            <a href="./?route=admin&page=comics&action=default"
+                                class="header__wrap-menu-sub-link <?= $action == 'default' ? 'active' : ''; ?>">Danh sách truyện</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="header__wrap-menu-item">
                     <a href="./?route=admin&page=chapters"
                         class="header__wrap-menu-link <?= $page == 'chapters' ? 'active' : ''; ?>">Tập</a>
+
                 </li>
                 <li class="header__wrap-menu-item">
                     <a href="./?route=admin&page=categories"
