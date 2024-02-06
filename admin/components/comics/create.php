@@ -34,6 +34,21 @@
                 </div>
 
                 <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="body__wrap-form-add-group">
+                            <label for="comic-poster-img" class="body__wrap-form-add-label">Poster</label>
+                            <input type="text" name="comic-poster-img" id="comic-poster-img" class="body__wrap-form-add-input" placeholder="Đường dẫn hình ảnh ....">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="body__wrap-form-add-group">
+                            <img class="body__wrap-form-add-img-preview" id="poster-img-preview" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
                     <div class="col">
                         <div class="body__wrap-form-add-group">
                             <label for="comic-upload-by" class="body__wrap-form-add-label">Được đăng bởi</label>

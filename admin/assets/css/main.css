@@ -157,6 +157,11 @@
     height: 38px;
 }
 
+.body__wrap-form-add-img-preview {
+    border-radius: 4px;
+    max-width: 300px;
+}
+
 /* Category list */
 .body__wrap-category {
     padding: 12px;

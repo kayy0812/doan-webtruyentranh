@@ -8,4 +8,11 @@ function notifyElm(text, type = 'info') {
     notify.innerHTML = null;
     }, 5000);
 }
- 
+
+const posterInput = document.getElementById('comic-poster-img');
+const posterImg = document.getElementById('poster-img-preview');
+
+posterInput.onpaste = (e) => {
+    imgUrl = e.clipboardData.getData('Text');
+    posterImg.src = imgUrl;
+}

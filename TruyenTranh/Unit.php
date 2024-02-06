@@ -2,6 +2,8 @@
 
 namespace TruyenTranh;
 
+use Exception;
+
 class Unit
 {
 
@@ -11,11 +13,24 @@ class Unit
          * @param int $limiter
          * @return string
          */
-        public static function createFriendlyText(string $txt, int $limiter = 50) : string
+        public static function createFriendlyText(string $txt, int $limiter = 50): string
         {
-                $replacements = ['@' => "at", '#' => "hash", '$' => "dollar", '%' => "percentage", '&' => "and", '.' => "dot",
-                        '+' => "plus", '-' => "minus", '*' => "multiply", '/' => "devide", '=' => "equal to",
-                        '<' => "less than", '<=' => "less than or equal to", '>' => "greater than", '<=' => "greater than or equal to",
+                $replacements = [
+                        '@' => "at",
+                        '#' => "hash",
+                        '$' => "dollar",
+                        '%' => "percentage",
+                        '&' => "and",
+                        '.' => "dot",
+                        '+' => "plus",
+                        '-' => "minus",
+                        '*' => "multiply",
+                        '/' => "devide",
+                        '=' => "equal to",
+                        '<' => "less than",
+                        '<=' => "less than or equal to",
+                        '>' => "greater than",
+                        '<=' => "greater than or equal to",
                 ];
 
                 $txt = strtr(strtolower($txt), $replacements);

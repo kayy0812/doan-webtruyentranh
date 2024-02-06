@@ -11,6 +11,8 @@ define("DB_NAME", 'db_truyentranh');
 define("DB_USER", 'root');
 define("DB_PASS", '');
 
+define('IMGUR_CLIENT_ID', '7a8a9233756ad43');
+
 $testBase = new Base();
 
 if (isset($_GET['route'])) {

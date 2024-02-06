@@ -2,6 +2,7 @@
 namespace TruyenTranh\Models;
 
 use TruyenTranh\Base;
+use TruyenTranh\Imgur;
 use TruyenTranh\Unit;
 
 class Comic extends Base {
@@ -34,16 +35,18 @@ class Comic extends Base {
      * @param string $author
      * @return bool
      */
-    public function addComic(string $name, string $other_name, int $upload_by, int $status, string $description, int $author, array $cats = []) {
+    public function addComic(string $name, string $other_name, int $upload_by, int $status, string $description, int $author, array $cats = [], string $poster) {
 
         if(!$name) throw new \Exception('Thiếu tên truyện');
         if(!$other_name) throw new \Exception('Thiếu tên truyện khác');
         if(!$status) throw new \Exception('Thiếu trạng thái truyện');
         if(!$description) throw new \Exception('Thiếu mô tả');
+        if(!$poster) throw new \Exception('Thiếu hình ảnh nền');
         $slug = Unit::createFriendlyText($name);
+        $poster_upload = new Imgur($poster);
         $result = $this->insert($this->table, 
-            ['name', 'other_name', 'description', 'slug', 'upload_by', 'status_id', 'author_id'], 
-            [$name, $other_name, $description, $slug, $upload_by, $status, $author]);
+            ['name', 'other_name', 'poster', 'description', 'slug', 'upload_by', 'status_id', 'author_id'], 
+            [$name, $other_name, $poster_upload->img, $description, $slug, $upload_by, $status, $author]);
 
         foreach ($cats as $cat) {
             $this->addCategoryToComic($this->getComicIdBySlug($slug), $cat);

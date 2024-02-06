@@ -65,7 +65,7 @@ if (empty($_GET["action"]))
                                             $data = $_POST;
 
                                             try {
-                                                $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats']);
+                                                $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats'], $data['comic-poster-img']);
                                                 $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
                                                 $_SESSION['txtNotifyCode'] = 'success';
                                             } catch (Exception $e) {
@@ -104,7 +104,7 @@ if (empty($_GET["action"]))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
         integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./admin/assets/js/main.js"></script>
+    <script src="./admin/assets/js/main.js?v=<?= rand() ?>"></script>
     <?php
     if (isset($_SESSION['txtNotify']) && isset($_SESSION['txtNotifyCode'])) {
         echo "<script> notifyElm(\"" . $_SESSION['txtNotify'] . "\", \"" . $_SESSION['txtNotifyCode'] . "\"); </script>";
