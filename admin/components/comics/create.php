@@ -1,6 +1,5 @@
 <div class="row mt-3">
     <div class="col">
-        <h2 class="body__wrap-subtitle">Thêm truyện ở bên dưới</h2>
         <form action="" method="post" class="body__wrap-form-add">
 
             <div class="container-fluid">
@@ -37,7 +36,8 @@
                     <div class="col-6">
                         <div class="body__wrap-form-add-group">
                             <label for="comic-poster-img" class="body__wrap-form-add-label">Poster</label>
-                            <input type="text" name="comic-poster-img" id="comic-poster-img" class="body__wrap-form-add-input" placeholder="Đường dẫn hình ảnh ....">
+                            <input type="text" name="comic-poster-img" id="comic-poster-img"
+                                class="body__wrap-form-add-input" placeholder="Đường dẫn hình ảnh ....">
                         </div>
                     </div>
 
@@ -61,8 +61,14 @@
                         <div class="body__wrap-form-add-group">
                             <label for="comic-author" class="body__wrap-form-add-label">Tác giả / Nhà Sản
                                 Xuất</label>
-                            <input type="text" id="comic-author" name="comic-author" class="body__wrap-form-add-input"
-                                placeholder="Tác giả / Nhà sản xuất" value="1" readonly>
+                            <select class="form-select body__wrap-form-select" name="comic-author" id="comic-author">
+                                <!-- <option selected>- Chọn trạng thái truyện -</option> -->
+                                <?php foreach ($author->getAllAuthors() as $i => $val) { ?>
+                                    <option value="<?= $val['author_id'] ?>">
+                                        <?= $val['name'] ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
                     </div>
 

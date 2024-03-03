@@ -2,7 +2,7 @@
 if ($redirector == 'admin' || $redirector == 'thaytrinhno1') {
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
-        $action = $_GET['action'];
+        $subpage = isset($_GET['subpage']) ? $_GET['subpage'] : '';
 
         switch($page) {
             case 'categories': 

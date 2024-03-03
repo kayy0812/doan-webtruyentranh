@@ -9,6 +9,10 @@
     --white-color: #fff;
     --text-color: #333333;
     --primary-bg-color: #323a41;
+
+    /* Comic list */
+    --body__wrap-comic-item-border-color: #000;
+    --body__wrap-comic-item-bg-color: #eee;
 }
 
 html {

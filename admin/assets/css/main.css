@@ -118,7 +118,14 @@
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
-    padding: 18px 0;
+    padding: 10px 0;
+}
+
+.body__wrap-subpage-name {
+    text-align: center;
+    font-size: 1.8rem;
+    font-style: oblique;
+    padding: 8px 0;
 }
 
 .body__wrap-form-add {
@@ -126,9 +133,6 @@
     justify-content: center;
     align-items: flex-end;
     width: 100%;
-    padding: 12px;
-    border: 1px solid #888888;
-    border-radius: 4px;
 }
 
 .body__wrap-form-add-group {
@@ -211,4 +215,44 @@
 .body__wrap-form-add-checkbox-label {
     background-color: rgb(102, 102, 241);
     color: #fff;
+}
+
+/* Comic List */
+.body__wrap-comic-item {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    margin-top: 8px;
+    background-color: var(--body__wrap-comic-item-bg-color);
+    border: 1px solid var(--body__wrap-comic-item-border-color);
+}
+
+.body__wrap-comic-img {
+    max-width: 100px;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.body__wrap-comic-with-name {
+    padding: 0 8px;
+}
+
+.body__wrap-comic-name {
+    font-size: 1.6rem;
+
+}
+
+.body__wrap-comic-chapter-count,
+.body__wrap-comic-id {
+    font-size: 1.5rem;
+}
+
+.body__wrap-comic-with-button {
+    margin-left: auto;
+}
+
+.body__wrap-comic-with-button > .btn {
+    display: block;
+    font-size: 1.6rem;
+    margin: 2px 0;
 }

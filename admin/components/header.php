@@ -21,12 +21,12 @@
                         class="header__wrap-menu-link <?= $page == 'comics' ? 'active' : ''; ?>">Truyện</a>
                     <ul class="header__wrap-menu-sub <?= $page == 'comics' ? 'active' : ''; ?>">
                         <li class="header__wrap-menu-sub-item">
-                            <a href="./?route=admin&page=comics&action=create"
-                                class="header__wrap-menu-sub-link <?= $action == 'create' ? 'active' : ''; ?>">Thêm truyện</a>
+                            <a href="./?route=admin&page=comics&subpage=create"
+                                class="header__wrap-menu-sub-link <?= $subpage == 'create' ? 'active' : ''; ?>">Thêm truyện</a>
                         </li>
                         <li class="header__wrap-menu-sub-item">
-                            <a href="./?route=admin&page=comics&action=default"
-                                class="header__wrap-menu-sub-link <?= $action == 'default' ? 'active' : ''; ?>">Danh sách truyện</a>
+                            <a href="./?route=admin&page=comics&subpage=list"
+                                class="header__wrap-menu-sub-link <?= $subpage == 'list' ? 'active' : ''; ?>">Danh sách truyện</a>
                         </li>
                     </ul>
                 </li>

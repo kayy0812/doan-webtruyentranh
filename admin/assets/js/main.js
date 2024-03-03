@@ -12,7 +12,9 @@ function notifyElm(text, type = 'info') {
 const posterInput = document.getElementById('comic-poster-img');
 const posterImg = document.getElementById('poster-img-preview');
 
-posterInput.onpaste = (e) => {
-    imgUrl = e.clipboardData.getData('Text');
-    posterImg.src = imgUrl;
+if (posterInput !== null && posterImg !== null) {
+    posterInput.onpaste = (e) => {
+        imgUrl = e.clipboardData.getData('Text');
+        posterImg.src = imgUrl;
+    }
 }

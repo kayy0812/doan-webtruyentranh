@@ -77,6 +77,10 @@ if (isset($_POST['cat_submit-delete'])) {
                                         <h1 class="body__wrap-title">
                                             QUẢN LÝ THỂ LOẠI
                                         </h1>
+
+                                        <div class="body__wrap-subpage-name">
+                                            Thêm thể loại
+                                        </div>
                                     </div>
                                 </div>
 
@@ -84,7 +88,6 @@ if (isset($_POST['cat_submit-delete'])) {
                                 <!-- Page index -->
                                 <div class="row mt-3">
                                     <div class="col">
-                                        <h2 class="body__wrap-subtitle">Thêm thể loại bên dưới</h2>
                                         <form action="" method="post" class="body__wrap-form-add">
                                             <div class="body__wrap-form-add-group me-3">
                                                 <label for="cat-name" class="body__wrap-form-add-label">Tên thể

@@ -84,7 +84,6 @@ class Base
         }
 
         // echo $query;
-
         return mysqli_query($this->db_array, $query);
     }
 

@@ -2,14 +2,16 @@
 use TruyenTranh\Models\Category;
 use TruyenTranh\Models\Status;
 use TruyenTranh\Models\Comic;
+use TruyenTranh\Models\Author;
 
 $category = new Category();
 $status = new Status();
+$author = new Author();
 $comic = new Comic();
 
 
-if (empty($_GET["action"]))
-    header("Location: ?route=admin&page=comics&action=default");
+if (empty($_GET["subpage"]))
+    header("Location: ?route=admin&page=comics&subpage=list");
 ?>
 
 <!DOCTYPE html>
@@ -53,31 +55,41 @@ if (empty($_GET["action"]))
                                         <h1 class="body__wrap-title">
                                             QUẢN LÝ TRUYỆN
                                         </h1>
+                                        <div class="body__wrap-subpage-name">
+                                        <?php 
+                                            switch ($subpage) {
+                                                case 'create':
+                                                    echo 'Thêm truyện';
+                                                    break;
+                                                case 'list':
+                                                    echo 'Tất cả truyện';
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
                                 </div>
 
 
                                 <!-- Add comic page -->
                                 <?php
-                                if (isset($_GET['action'])) {
-                                    if ($_GET['action'] == 'create') {
-                                        if (isset($_POST['cat_submit-add'])) {
-                                            $data = $_POST;
+                                if ($subpage == 'create') {
+                                    if (isset($_POST['cat_submit-add'])) {
+                                        $data = $_POST;
 
-                                            try {
-                                                $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats'], $data['comic-poster-img']);
-                                                $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
-                                                $_SESSION['txtNotifyCode'] = 'success';
-                                            } catch (Exception $e) {
-                                                $_SESSION['txtNotify'] = $e->getMessage();
-                                                $_SESSION['txtNotifyCode'] = 'danger';
-                                            }
+                                        try {
+                                            $comic->addComic($data['comic_name'], $data['comic-other-name'], $data['comic-upload-by'], $data['comic-status'], $data['comic-desc'], $data['comic-author'], $data['comic-cats'], $data['comic-poster-img']);
+                                            $_SESSION['txtNotify'] = 'Thêm thành công truyện ' . $data['comic_name'];
+                                            $_SESSION['txtNotifyCode'] = 'success';
+                                        } catch (Exception $e) {
+                                            $_SESSION['txtNotify'] = $e->getMessage();
+                                            $_SESSION['txtNotifyCode'] = 'danger';
                                         }
-
-                                        require_once('./admin/components/comics/create.php');
-                                    } else if ($_GET['action'] == 'default') {
-                                        require_once('./admin/components/comics/default.php');
                                     }
+
+                                    require_once('./admin/components/comics/create.php');
+
+                                } else if ($subpage == 'list') {
+                                    require_once('./admin/components/comics/list.php');
                                 }
                                 ?>
                             </div>
