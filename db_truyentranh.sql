@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 06, 2024 lúc 08:36 PM
+-- Thời gian đã tạo: Th3 10, 2024 lúc 09:56 PM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -30,6 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `authors` (
   `author_id` int(10) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
+  `slug` varchar(50) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `year_of_birth` year(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -37,8 +39,10 @@ CREATE TABLE `authors` (
 -- Đang đổ dữ liệu cho bảng `authors`
 --
 
-INSERT INTO `authors` (`author_id`, `name`, `year_of_birth`) VALUES
-(1, 'Không xác định', '0000');
+INSERT INTO `authors` (`author_id`, `name`, `slug`, `description`, `year_of_birth`) VALUES
+(1, 'Không xác định', '', '', '0000'),
+(2, 'gfdgf', 'gfdgf', 'gdfgfdgf', '2004'),
+(3, 'Tan loz', 'tan-loz', 'Tan ngu vcl', '2003');
 
 -- --------------------------------------------------------
 
@@ -347,7 +351,7 @@ ALTER TABLE `user_permisions`
 -- AUTO_INCREMENT cho bảng `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `author_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `author_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `category_default_list`
