@@ -32,12 +32,16 @@
                 </li>
                 <li class="header__wrap-menu-item">
                     <a href="./?route=admin&page=chapters"
-                        class="header__wrap-menu-link <?= $page == 'chapters' ? 'active' : ''; ?>">Tập</a>
+                        class="header__wrap-menu-link <?= $page == 'chapters' ? 'active' : ''; ?>">Chương</a>
 
                 </li>
                 <li class="header__wrap-menu-item">
                     <a href="./?route=admin&page=categories"
                         class="header__wrap-menu-link <?= $page == 'categories' ? 'active' : ''; ?>">Thể loại</a>
+                </li>
+                <li class="header__wrap-menu-item">
+                    <a href="./?route=admin&page=authors"
+                        class="header__wrap-menu-link <?= $page == 'authors' ? 'active' : ''; ?>">Tác giả / Nhà sản xuất</a>
                 </li>
             </ul>
         </div>

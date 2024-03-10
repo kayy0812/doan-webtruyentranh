@@ -59,21 +59,6 @@
 
                     <div class="col">
                         <div class="body__wrap-form-add-group">
-                            <label for="comic-author" class="body__wrap-form-add-label">Tác giả / Nhà Sản
-                                Xuất</label>
-                            <select class="form-select body__wrap-form-select" name="comic-author" id="comic-author">
-                                <!-- <option selected>- Chọn trạng thái truyện -</option> -->
-                                <?php foreach ($author->getAllAuthors() as $i => $val) { ?>
-                                    <option value="<?= $val['author_id'] ?>">
-                                        <?= $val['name'] ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="body__wrap-form-add-group">
                             <label for="comic-status" class="body__wrap-form-add-label">Trạng thái
                                 truyện</label>
                             <select class="form-select body__wrap-form-select" name="comic-status" id="comic-status">
@@ -84,6 +69,27 @@
                                     </option>
                                 <?php } ?>
                             </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="body__wrap-form-add-group">
+                            <label class="body__wrap-form-add-label">Tác giả / Nhà sản xuất</label>
+
+                            <div class="body__wrap-form-add-checkbox-wrap">
+                                <?php foreach ($author->getAllAuthors() as $i => $val) { ?>
+                                    <div class="body__wrap-form-add-checkbox">
+                                        <input class="body__wrap-form-add-checkbox-input" type="radio"
+                                            name="comic-authors[]" id="comic-authors-<?= $i ?>"
+                                            value="<?= $val['author_id'] ?>">
+                                        <label class="body__wrap-form-add-checkbox-label" for="comic-authors-<?= $i ?>">
+                                            <?= $val['name'] ?>
+                                        </label>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>

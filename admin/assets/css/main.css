@@ -217,6 +217,12 @@
     color: #fff;
 }
 
+.body__wrap-form-add-checkbox-input[type="radio"]:checked + 
+.body__wrap-form-add-checkbox-label {
+    background-color: rgb(206, 22, 99);
+    color: #fff;
+}
+
 /* Comic List */
 .body__wrap-comic-item {
     display: flex;
